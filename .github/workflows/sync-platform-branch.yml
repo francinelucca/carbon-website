@@ -26,7 +26,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{secrets.GITHUB_TOKEN}}
           commit-message: Sync carbon-platform branch
           branch: carbon-platform-branch-sync
           delete-branch: true
