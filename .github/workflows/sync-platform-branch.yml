@@ -14,25 +14,25 @@ on:
     
   # Enable running this workflow manually from the Actions tab
   workflow_dispatch: # Allow for running this manually.
-
+          
 jobs:
-  sync-branches:
+  createPullRequest:
     runs-on: ubuntu-latest
-    name: Syncing branches
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
         with:
-          node-version: 16
-      - name: Opening pull request
-        id: pull
-        uses: tretuna/sync-branches@1.4.0
-        with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: "main"
-          TO_BRANCH: "carbon-platform"
-          PULL_REQUEST_BODY: "Platform Sync, pulling in new content from main into carbon-platform branch"
-          CONTENT_COMPARISON: true
-          REVIEWERS: '["francinelucca","andreancardona","alisonjoseph"]'
+          token: ${{ secrets.PAT }}
+          commit-message: Sync carbon-platform branch
+          branch: carbon-platform-branch-sync
+          delete-branch: true
+          title: 'Sync carbon-platform branch'
+          body: |
+            Platform Sync, pulling in new content from main into carbon-platform branch
+            ***Note***: It's ok for the CI cheks to fail on this PR, this code is not runnable due to the platform changes
+          assignees: francinelucca
+          reviewers: francinelucca,andreancardona,alisonjoseph
