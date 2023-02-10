@@ -44,6 +44,12 @@ jobs:
               "**Note**: It’s ok for the CI cheks to fail on this PR, this code is not runnable due to the platform changes"
               ].join('\n')
             });
+            github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: result.data.number,
+              labels: ['status: enable automerge 🟠', 'status: ready for review 👀']
+            });
             github.rest.pulls.requestReviewers({
               owner,
               repo,
