@@ -32,6 +32,7 @@ jobs:
         with:
           script: |
             const { repo, owner } = context.repo;
+            console.log(repo, owner)
             const result = await github.rest.pulls.create({
               title: 'Sync carbon-platform branch',
               owner,
