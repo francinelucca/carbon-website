@@ -25,7 +25,6 @@ jobs:
       - name: Create PR branch 🤖
         run: |
           git branch carbon-platform-sync
-          git pull origin carbon-platform-sync
           git push origin carbon-platform-sync
           
       - name: Create Pull Request
